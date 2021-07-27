@@ -8,6 +8,7 @@ using namespace holo;
 
 SCENARIO("bool const") {
     static_assert(bool_c<true> == bool_c<true>);
+    static_assert(bool_c<true> == true);
     static_assert(bool_c<true> != bool_c<false>);
     static_assert(true_c == !false_c);
     static_assert(false_c == !true_c);

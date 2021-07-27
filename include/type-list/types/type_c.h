@@ -5,12 +5,15 @@
 #ifndef TYPE_LIST_2_83551568A5224FA499D85DFF0D418089
 #define TYPE_LIST_2_83551568A5224FA499D85DFF0D418089
 
-#include <type-list/types/bool_c.h>
+#include <type-list/types/size_c.h>
 #include <type_traits>
 
 namespace holo {
     template<typename T> struct type_t {
         using type = T;
+        constexpr auto size() const -> auto {
+            return size_c<sizeof(T)>;
+        }
     };
 
     template<typename T>

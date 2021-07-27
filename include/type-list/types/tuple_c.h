@@ -6,7 +6,7 @@
 #define TYPE_LIST_2_0B40D1F68A124491969A33E713632229
 
 #include <type-list/types/detail/ebo.h>
-#include <type-list/types/bool_c.h>
+#include <type-list/types/size_c.h>
 #include <utility>
 
 namespace holo::detail {
@@ -30,10 +30,14 @@ namespace holo {
     struct tuple_t : detail::tuple_base_t<Ts...> {
         constexpr tuple_t() {}
         using to_list_t = type_list_t<Ts...>;
+        constexpr auto size() const -> auto {
+            return size_c<sizeof...(Ts)>;
+        }
     };
 
     template<std::size_t N, typename ... Xs>
     constexpr auto get(tuple_t<Xs...> xs) -> auto {
+        static_assert(N < sizeof...(Xs));
         return detail::ebo_get<N>(xs);
     }
 

@@ -10,4 +10,5 @@ using namespace holo;
 SCENARIO("type const") {
     static_assert(type_c<int> == type_c<int>);
     static_assert(type_c<int> != type_c<short>);
+    static_assert(type_c<long>.size() == sizeof(long));
 }
