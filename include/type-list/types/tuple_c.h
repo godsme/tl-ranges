@@ -42,7 +42,12 @@ namespace holo {
     }
 
     template<typename ... Xs>
-    constexpr auto tuple_c = tuple_t<Xs...>{};
+    constexpr auto make_tuple(Xs...) -> tuple_t<typename type_t<Xs>::this_type ...> {
+        return {};
+    }
+
+    template<typename ... Xs>
+    constexpr auto tuple_c = tuple_t<typename type_t<Xs>::this_type ...>{};
 
     template<typename ... Xs, typename ... Ys>
     constexpr auto operator==(tuple_t<Xs...>, tuple_t<Ys...>) -> auto {

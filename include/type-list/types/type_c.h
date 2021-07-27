@@ -11,8 +11,18 @@
 namespace holo {
     template<typename T> struct type_t {
         using type = T;
+        using this_type = type_t<type>;
         constexpr auto size() const -> auto {
-            return size_c<sizeof(T)>;
+            return size_c<sizeof(type)>;
+        }
+    };
+
+    template<typename T>
+    struct type_t<type_t<T>> {
+        using type = typename type_t<T>::type;
+        using this_type = type_t<type>;
+        constexpr auto size() const -> auto {
+            return size_c<sizeof(type)>;
         }
     };
 
@@ -21,7 +31,7 @@ namespace holo {
 
     template<typename T1, typename T2>
     constexpr auto operator==(type_t<T1>, type_t<T2>) -> auto {
-        return bool_c<std::is_same_v<T1, T2>>;
+        return bool_c<std::is_same_v<typename type_t<T1>::type, typename type_t<T2>::type>>;
     }
 
     template<typename T1, typename T2>

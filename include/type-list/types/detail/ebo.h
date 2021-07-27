@@ -11,12 +11,13 @@
 namespace holo::detail {
     template<std::size_t K, typename V>
     struct ebo {
+        static_assert(std::is_empty_v<V>);
         constexpr ebo() {}
         constexpr ebo(ebo const &rhs) = default;
     };
 
     template<std::size_t K, typename V>
-    constexpr auto ebo_get(ebo<K, V> const &x) -> type_t<V> {
+    constexpr auto ebo_get(ebo<K, V> const &x) -> V {
         return {};
     }
 }
