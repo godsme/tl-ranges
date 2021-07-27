@@ -5,7 +5,7 @@
 #ifndef TYPE_LIST_2_E020BF9E02404BA19B54B5629F5596FC
 #define TYPE_LIST_2_E020BF9E02404BA19B54B5629F5596FC
 
-namespace type_list {
+namespace holo {
     template<bool V>
     struct bool_t {
         constexpr operator bool() const { return V; }
@@ -28,6 +28,16 @@ namespace type_list {
     template<bool V1, bool V2>
     constexpr auto operator!=(bool_t<V1> l, bool_t<V2> r) -> auto {
         return !operator==(l, r);
+    }
+
+    template<bool V1, bool V2>
+    constexpr auto operator&&(bool_t<V1> l, bool_t<V2> r) -> auto {
+        return bool_c<V1 && V2>;
+    }
+
+    template<bool V1, bool V2>
+    constexpr auto operator||(bool_t<V1> l, bool_t<V2> r) -> auto {
+        return bool_c<V1 || V2>;
     }
 }
 

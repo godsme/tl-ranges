@@ -4,7 +4,7 @@
 #include <type-list/types/bool_c.h>
 #include <catch.hpp>
 
-using namespace type_list;
+using namespace holo;
 
 SCENARIO("bool const") {
     static_assert(bool_c<true> == bool_c<true>);
@@ -14,5 +14,11 @@ SCENARIO("bool const") {
     static_assert(true_c != false_c);
     static_assert(true_c);
     static_assert(!false_c);
+
+    static_assert(true_c && true_c);
+    static_assert(true_c && true_c && true_c);
+    static_assert(!(true_c && false_c && true_c));
+    static_assert(true_c || false_c || true_c);
+    static_assert(!(false_c || false_c || false_c));
 }
 

@@ -8,8 +8,7 @@
 #include <type-list/types/bool_c.h>
 #include <type_traits>
 
-namespace type_list {
-
+namespace holo {
     template<typename T> struct type_t {
         using type = T;
     };
@@ -24,7 +23,7 @@ namespace type_list {
 
     template<typename T1, typename T2>
     constexpr auto operator!=(type_t<T1> lhs, type_t<T2> rhs) -> auto {
-        return bool_c<!std::is_same_v<T1, T2>>;
+        return !operator==(lhs, rhs);
     }
 }
 
