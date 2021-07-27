@@ -65,6 +65,11 @@ namespace holo {
     constexpr auto operator!=(tuple_t<Xs...> lhs, tuple_t<Ys...> rhs) -> auto {
         return !operator==(lhs, rhs);
     }
+
+    template<typename ... Xs, typename ... Ys>
+    constexpr auto operator+(tuple_t<Xs...>, tuple_t<Ys...>) -> auto {
+        return tuple_c<Xs..., Ys...>;
+    }
 }
 
 #endif //TYPE_LIST_2_0B40D1F68A124491969A33E713632229
