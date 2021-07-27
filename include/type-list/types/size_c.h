@@ -7,6 +7,7 @@
 
 #include <type-list/types/bool_c.h>
 #include <cstdlib>
+#include <limits>
 
 namespace holo {
     template<std::size_t V>
@@ -33,11 +34,13 @@ namespace holo {
 
     template<std::size_t V1, std::size_t V2>
     constexpr auto operator+(size_c_t<V1>, size_c_t<V2>) -> auto {
+        static_assert(std::numeric_limits<std::size_t>::max() - V1 >= V2);
         return size_c<V1 + V2>;
     }
 
     template<std::size_t V1, std::size_t V2>
     constexpr auto operator-(size_c_t<V1>, size_c_t<V2>) -> auto {
+        static_assert(V1 >= V2);
         return size_c<V1 - V2>;
     }
 

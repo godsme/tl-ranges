@@ -10,4 +10,10 @@ using namespace holo;
 SCENARIO("size const") {
     static_assert(size_c<10> == 10);
     static_assert(size_c<10> != 11);
+    static_assert(size_c<10> < 11);
+    static_assert(size_c<10> <= 11);
+    static_assert(size_c<10> >= 10);
+    static_assert(size_c<10> > 9);
+
+    static_assert(size_c<10> + size_c<11> == size_c<21>);
 }
