@@ -13,7 +13,7 @@ namespace holo::detail {
     private:
         template<std::size_t N, std::size_t ... Xn, std::size_t ... Yn, typename ... Xs>
         constexpr auto do_split(std::index_sequence<Xn...>, std::index_sequence<Yn...>, tuple_t<Xs...> xs) const -> auto {
-            return make_tuple(holo::get<Xn>(xs) ...);
+            return make_tuple(make_tuple(holo::get<Xn>(xs) ...), make_tuple(holo::get<Yn + N>(xs) ...));
         }
 
     public:

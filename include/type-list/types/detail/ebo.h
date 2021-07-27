@@ -9,16 +9,19 @@
 #include <cstdlib>
 
 namespace holo::detail {
-    template<std::size_t K, typename V>
+    template<std::size_t K, typename V, bool = std::is_empty_v<V>>
     struct ebo {
-        static_assert(std::is_empty_v<V>);
-        constexpr ebo() {}
-        constexpr ebo(ebo const &rhs) = default;
+        using type = V;
     };
 
     template<std::size_t K, typename V>
-    constexpr auto ebo_get(ebo<K, V> const &x) -> V {
-        return {};
+    struct ebo<K, V, false> {
+        using type = type_t<V>;
+    };
+
+    template<std::size_t K, typename V>
+    constexpr auto ebo_get(ebo<K, V> const &x) -> auto {
+        return typename ebo<K, V>::type{};
     }
 }
 

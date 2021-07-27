@@ -9,6 +9,17 @@
 
 namespace holo::detail {
     template<typename OP>
+    struct apply_op_0 : OP {
+        using OP::operator();
+
+        constexpr auto operator()() const -> auto {
+            return [this](auto&& xs) {
+                return OP::operator()(xs);
+            };
+        }
+    };
+
+    template<typename OP>
     struct apply_op_1 : OP {
         using OP::operator();
         template<typename ARG>
