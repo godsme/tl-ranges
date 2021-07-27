@@ -26,6 +26,7 @@ namespace holo {
     template<typename T>
     struct type_t {
         using type = typename detail::type_t_trait<T>::type;
+        using this_type = type_t<type>;
         constexpr auto size() const -> auto {
             return size_c<sizeof(type)>;
         }

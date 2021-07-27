@@ -8,6 +8,8 @@
 
 using namespace holo;
 
+template<typename T> struct S;
+
 SCENARIO("split") {
     constexpr auto result = split(size_c<0>, tuple_c<int, long>);
     static_assert(first(result) == tuple_c<>);

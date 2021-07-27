@@ -24,16 +24,19 @@ namespace holo::detail {
 
 namespace holo {
     template<typename ... Ts>
-    struct type_list_t;
-
-    template<typename ... Ts>
     struct tuple_t : detail::tuple_base_t<Ts...> {
         constexpr tuple_t() {}
-        using to_list_t = type_list_t<Ts...>;
         constexpr auto size() const -> auto {
             return size_c<sizeof...(Ts)>;
         }
     };
+
+    namespace detail {
+        template<std::size_t K, typename ... Xs>
+        constexpr auto ebo_get(ebo<K, tuple_t<Xs...>> const &x) -> tuple_t<Xs...> {
+            return {};
+        }
+    }
 
     template<std::size_t N, typename ... Xs>
     constexpr auto get(tuple_t<Xs...> xs) -> auto {
@@ -47,7 +50,7 @@ namespace holo {
     }
 
     template<typename ... Xs>
-    constexpr auto tuple_c = tuple_t<typename type_t<Xs>::type ...>{};
+    constexpr auto tuple_c = tuple_t<Xs...>{};
 
     template<typename ... Xs, typename ... Ys>
     constexpr auto operator==(tuple_t<Xs...>, tuple_t<Ys...>) -> auto {
