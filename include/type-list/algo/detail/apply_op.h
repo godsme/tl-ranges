@@ -24,8 +24,19 @@ namespace holo::detail {
         using OP::operator();
         template<typename ARG>
         constexpr auto operator()(ARG&& arg) const -> auto {
-            return [=](auto&& xs) {
+            return [&](auto&& xs) {
                 return OP::operator()(arg, xs);
+            };
+        }
+    };
+
+    template<typename OP>
+    struct apply_op_2 : OP {
+        using OP::operator();
+        template<typename ARG1, typename ARG2>
+        constexpr auto operator()(ARG1&& arg1, ARG2&& arg2) const -> auto {
+            return [&](auto&& xs) {
+                return OP::operator()(arg1, arg2, xs);
             };
         }
     };

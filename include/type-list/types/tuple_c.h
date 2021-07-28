@@ -70,6 +70,12 @@ namespace holo {
     constexpr auto operator+(tuple_t<Xs...>, tuple_t<Ys...>) -> auto {
         return tuple_c<Xs..., Ys...>;
     }
+
+    template<typename X>
+    constexpr auto tuple_elem = type_t<typename type_t<X>::type>{};
+
+    template<typename ... Xs>
+    constexpr auto tuple_elem<tuple_t<Xs...>> = tuple_t<Xs...>{};
 }
 
 #endif //TYPE_LIST_2_0B40D1F68A124491969A33E713632229

@@ -12,6 +12,7 @@
 namespace holo {
     template<std::size_t V>
     struct size_c_t {
+        constexpr size_c_t() {}
         static constexpr std::size_t value = V;
         using size_t = std::size_t;
         constexpr operator size_t() const {
