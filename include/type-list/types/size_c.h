@@ -23,6 +23,9 @@ namespace holo {
     template<std::size_t V>
     constexpr auto size_c = size_c_t<V>{};
 
+    template<typename T>
+    constexpr auto size_of = size_c_t<sizeof(T)>{};
+
     template<std::size_t V1, std::size_t V2>
     constexpr auto operator==(size_c_t<V1>, size_c_t<V2>) -> auto {
         return bool_c<V1 == V2>;
