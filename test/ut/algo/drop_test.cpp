@@ -7,7 +7,7 @@
 
 using namespace holo;
 
-SCENARIO("split") {
+SCENARIO("drop") {
     constexpr auto result = drop(size_c<0>, tuple_c<int, long>);
     static_assert(result == tuple_c<int, long>);
 

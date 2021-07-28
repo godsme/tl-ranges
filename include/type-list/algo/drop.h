@@ -12,7 +12,7 @@ namespace holo::detail {
     struct drop {
     private:
         template<std::size_t N, std::size_t ... Yn, typename ... Xs>
-        constexpr auto do_drop(std::index_sequence<Yn...>, tuple_t<Xs...> xs) const -> auto {
+        constexpr static auto apply(std::index_sequence<Yn...>, tuple_t<Xs...> xs) -> auto {
             return make_tuple(holo::get<Yn + N>(xs) ...);
         }
 
@@ -20,7 +20,7 @@ namespace holo::detail {
         template<std::size_t N, typename ... Xs>
         constexpr auto operator()(size_c_t<N>, tuple_t<Xs...> xs) const -> auto {
             static_assert(N <= sizeof...(Xs));
-            return do_drop<N>(std::make_index_sequence<sizeof...(Xs) - N>{}, xs);
+            return apply<N>(std::make_index_sequence<sizeof...(Xs) - N>{}, xs);
         }
     };
 }
