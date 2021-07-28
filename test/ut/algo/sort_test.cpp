@@ -13,4 +13,10 @@ SCENARIO("sort") {
     }, tuple_c<int, long, short, char>);
 
     static_assert(result == tuple_c<char, short, int, long>);
+
+    constexpr auto result1 = sort([](auto &&l, auto &&r) {
+        return l.size() < r.size();
+    })(tuple_c<int, long, short, char>);
+
+    static_assert(result1 == tuple_c<char, short, int, long>);
 }
