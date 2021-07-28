@@ -52,6 +52,11 @@ namespace holo {
     template<typename ... Xs>
     constexpr auto tuple_c = tuple_t<typename type_t<Xs>::type ...>{};
 
+    template<typename ... Xs, typename X>
+    constexpr auto tuple_cat(tuple_t<Xs...>, X x) -> auto {
+        return tuple_c<Xs..., X>;
+    }
+
     template<typename ... Xs, typename ... Ys>
     constexpr auto operator==(tuple_t<Xs...>, tuple_t<Ys...>) -> auto {
         if constexpr(sizeof...(Xs) == sizeof...(Ys)) {

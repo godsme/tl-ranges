@@ -11,8 +11,8 @@
 namespace holo::detail {
     struct contains {
         template<typename T, typename ... Xs>
-        constexpr auto operator()(type_t<T>, tuple_t<Xs...>) const -> auto {
-            return bool_c<(std::is_same_v<T, Xs> || ...)>;
+        constexpr auto operator()(T, tuple_t<Xs...>) const -> auto {
+            return bool_c<((type_c<T> == type_c<Xs>) || ...)>;
         }
     };
 }

@@ -8,23 +8,24 @@
 #include <type-list/algo/contains.h>
 
 namespace holo::detail {
-    template<typename ... Xs>
+    template<typename Xs>
     struct unique_helper {
-        constexpr unique_helper(tuple_t<Xs...> result) : result_(result) {}
+        constexpr unique_helper(Xs result) : result_(result) {}
 
         template<typename X>
-        constexpr auto operator<<(type_t<X>) const {
-            if constexpr(decltype(holo::contains(type_c<X>, result_))::value) {
+        constexpr auto operator<<(X x) const {
+            if constexpr(decltype(holo::contains(X{}, result_))::value) {
                 return unique_helper(result_);
             } else {
-                return unique_helper<Xs..., X>(tuple_c<Xs..., X>);
+                auto result = tuple_cat(result_, x);
+                return unique_helper<decltype(result)>(result);
             }
         }
 
         constexpr auto operator()() const -> auto { return result_; }
 
     private:
-        tuple_t<Xs...> result_;
+        Xs result_;
     };
 }
 
