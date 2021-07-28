@@ -8,6 +8,7 @@
 namespace holo {
     template<bool V>
     struct bool_t {
+        constexpr static bool value = V;
         constexpr operator bool() const { return V; }
         constexpr auto operator!() const -> auto {
             return bool_t<!V>{};
