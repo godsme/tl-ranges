@@ -26,7 +26,7 @@ namespace holo {
     template<typename ... Ts>
     struct tuple_t : detail::tuple_base_t<Ts...> {
         constexpr tuple_t() {}
-        constexpr auto size() const -> auto {
+        constexpr static auto size() -> auto {
             return size_c<sizeof...(Ts)>;
         }
     };
